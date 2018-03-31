@@ -19,28 +19,10 @@ RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.` try 
     1. If you get a `A required privilege is not held by the client.` try elevating to an Admin command prompt.
     1. On Windows at least this is creating a shortcut in `%LocalAppData%\heroku\plugins\node_modules`
 
-## Get the latest debug log
+## Create nab scratch org with code and data 
 
-This is based off the same command from the [sfdx-waw-plugins by Wade Wegner](https://github.com/wadewegner/sfdx-waw-plugin). The difference here is that it then runs through the debug log parser.
+`sfdx nab:env:deploy -u <ORGNAME>`
 
-`sfdx fit:apex:log:latest -u <targetusername>`
+## Deploy source code 
 
-## Get a summary of the latest debug log
-
-`sfdx fit:apex:log:latest -u <targetusername> --summary`
-
-## Filter the latest debug log to just the USER_DEBUG entries
-
-`sfdx fit:apex:log:latest -u <targetusername> --debugOnly`
-
-## Filter the latest debug log to only the events of interest
-
-`sfdx fit:apex:log:latest -u <targetusername> --filter USER_INFO,CODE_UNIT_STARTED`
-
-## Convert the latest debug log to JSON
-
-`sfdx fit:apex:log:latest -u <targetusername> --json`
-
-## Deployment
-
-`sfdx fit:deployment:fish`
+`sfdx nab:env:deploy -u <ORGNAME>`
