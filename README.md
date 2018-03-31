@@ -8,10 +8,7 @@ A plugin for the Salesforce CLI built by David Browaeys containing a lot of help
 
 1. Install the [SDFX CLI](https://developer.salesforce.com/tools/sfdxcli) if you haven't already.
 
-2. Clone the repository: `git clone git@github.com:FuseInfoTech/FitCLI.git`
-    1. If you get an error like `The authenticity of host 'github.com (192.30.255.112)' can't be established.
-RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.` try the following instead:
-      `git clone https://github.com/FuseInfoTech/FitCLI`
+2. Clone the repository: https://github.com/davidbrowaeys/nab-cli
 
 3. Install npm modules: `npm install` 
 
