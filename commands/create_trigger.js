@@ -9,15 +9,17 @@ function updateContent(content, values) {
   const varName = splitValues[0];
   const varValue = splitValues[1];
 
-  console.log(content);
-  content = content.replace(new RegExp('/{{'+varName+'}}/g'), varValue);
-  //  content = content.replace(new RegExp(`{{${varName}}}`, 'g'), varValue);
+  content = content.replace(new RegExp(`{{${varName}}}`,'g'), varValue);
   return content;
 }
 
 function createFiles(templateFolder, sobject, vars, done) {
 
   const name = sobject.replace('__c','').replace('_','') + 'Trigger';
+  vars =  'className='+sobject.replace('__c','').replace('_','') + 'TriggerHandler,'+
+          'triggerName='+sobject.replace('__c','').replace('_','') + 'Trigger,'+
+          'apiName=42.0,'+
+          'sobject='+sobject;
 
   const outputdir = './force-app/main/default';
 
@@ -30,8 +32,6 @@ function createFiles(templateFolder, sobject, vars, done) {
   if (!fse.existsSync(defJsonPath)) {
     done('def.json not found', null);
   }
-
-  console.log(defJsonPath);
 
   const defJson = JSON.parse(fs.readFileSync(defJsonPath).toString());
   const defJsonVars = defJson.vars;
@@ -57,16 +57,12 @@ function createFiles(templateFolder, sobject, vars, done) {
         content = updateContent(content, value);
       });
 
-      console.log('>>>',fileName,fileExtension);
       let newFile = path.join(`${outputdir}/triggers`, `${name}.${fileExtension}`);
       if (fileExtension.toString().includes('cls')) {
         newFile = path.join(`${outputdir}/classes`, `${name}Handler.${fileExtension}`);
       }
-      console.log(newFile);
 
       const newFilePath = path.dirname(newFile);
-
-      console.log(newFilePath);
 
       fse.ensureDirSync(newFilePath);
       fs.writeFileSync(newFile, content);
