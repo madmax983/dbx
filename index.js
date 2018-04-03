@@ -1,6 +1,7 @@
 const createorg = require('./commands/env/create_nab_org.js');
 const deploy = require('./commands/env/deploy.js');
-const createApexClass = require('./commands/create_class.js'); 
+const createApexClass = require('./commands/create_class.js');
+const createTrigger = require('./commands/create_trigger.js'); 
 
 (function () {
   'use strict';
@@ -9,7 +10,7 @@ const createApexClass = require('./commands/create_class.js');
     name: 'env',
     description: 'create nab env'
   },{
-    name: 'apex',
+    name: 'code',
     description: 'apex utilities'
   }];
 
@@ -21,7 +22,8 @@ const createApexClass = require('./commands/create_class.js');
   exports.commands = [
     createorg,
     createApexClass,
-    deploy
+    deploy,
+    createTrigger
   ];
 
 }());

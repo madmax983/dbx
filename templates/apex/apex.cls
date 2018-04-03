@@ -1,5 +1,4 @@
-public with sharing class {{className}} {
+public with sharing class {{className}}{
   public {{className}}() {
-
   }
 }
