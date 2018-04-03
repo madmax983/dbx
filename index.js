@@ -1,6 +1,6 @@
-const createNabOrg = require('./commands/create_nab_org.js');
-const createApexClass = require('./commands/create_class.js');
-const deploy = require('./commands/deploy.js');
+const createorg = require('./commands/env/create_nab_org.js');
+const deploy = require('./commands/env/deploy.js');
+const createApexClass = require('./commands/create_class.js'); 
 
 (function () {
   'use strict';
@@ -19,7 +19,7 @@ const deploy = require('./commands/deploy.js');
   };
 
   exports.commands = [
-    createNabOrg,
+    createorg,
     createApexClass,
     deploy
   ];

@@ -1,4 +1,4 @@
-const forceUtils = require('../lib/forceUtils.js');
+const forceUtils = require('../../lib/forceUtils.js');
 const exec = require('child_process').execSync;
 
 (function () {
@@ -13,7 +13,8 @@ const exec = require('child_process').execSync;
       name: 'orgname',
       char: 'u',
       description: 'name of scratch org',
-      hasValue: true
+      hasValue: true,
+      required: true
     }],
     run(context) {
       let orgname = context.flags.orgname;
