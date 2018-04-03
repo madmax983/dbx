@@ -9,6 +9,7 @@ function updateContent(content, values) {
   const varName = splitValues[0];
   const varValue = splitValues[1];
 
+  console.log(content);
   content = content.replace(new RegExp('/{{'+varName+'}}/g'), varValue);
   //  content = content.replace(new RegExp(`{{${varName}}}`, 'g'), varValue);
   return content;
