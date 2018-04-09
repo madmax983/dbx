@@ -3,7 +3,7 @@ const fse = require('fs-extra');
 const fs = require('fs');
 const os = require('os');
 
-const codeCreate = require('../lib/code_create.js');
+const codeCreate = require('../../lib/code_create.js');
 
 (function () {
   'use strict';
@@ -27,7 +27,7 @@ const codeCreate = require('../lib/code_create.js');
 
       let templateFolder = path.join(os.homedir(), '.sfdx-templates', template);
       if (!fse.existsSync(templateFolder)) {
-        templateFolder = path.join(__dirname, '../templates', template);
+        templateFolder = path.join(__dirname, '../../templates', template);
       }
 
       codeCreate.createFiles(templateFolder, name, template, vars, outputdir, (err, success) => {

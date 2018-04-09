@@ -103,7 +103,7 @@ function createFiles(templateFolder, sobject, vars, done) {
 
       let templateFolder = path.join(os.homedir(), '.sfdx-templates', template);
       if (!fse.existsSync(templateFolder)) {
-        templateFolder = path.join(__dirname, '../templates', template);
+        templateFolder = path.join(__dirname, '../../templates', template);
       }
 
       createFiles(templateFolder, sobject, template, vars, (err, success) => {

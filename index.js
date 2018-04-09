@@ -1,7 +1,8 @@
 const createorg = require('./commands/env/create_nab_org.js');
 const deploy = require('./commands/env/deploy.js');
-const createApexClass = require('./commands/create_class.js');
-const createTrigger = require('./commands/create_trigger.js'); 
+const createApexClass = require('./commands/code/create_class.js');
+const createTrigger = require('./commands/code/create_trigger.js'); 
+const bulkInsert = require('./commands/data/bulk_insert.js'); 
 
 (function () {
   'use strict';
@@ -12,6 +13,9 @@ const createTrigger = require('./commands/create_trigger.js');
   },{
     name: 'code',
     description: 'apex utilities'
+  },{
+    name: 'data',
+    description: 'data utilities'
   }];
 
   exports.namespace = {
@@ -23,7 +27,8 @@ const createTrigger = require('./commands/create_trigger.js');
     createorg,
     createApexClass,
     deploy,
-    createTrigger
+    createTrigger,
+    bulkInsert
   ];
 
 }());
