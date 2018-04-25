@@ -24,10 +24,8 @@ function createJob(sobject, accessToken, instanceUrl){
   request(options,
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log(body);          
-          const jobId = JSON.parse(body).id;
-          console.log('Job created['+jobId+'] successfully...');
-          addBatch(jobId, accessToken, instanceUrl);
+          console.log('Job created['+body.id+'] successfully...');
+          addBatch(body.id, accessToken, instanceUrl);
         }else{
           console.log('Unexpected Error!');
           console.log(response);
@@ -37,7 +35,7 @@ function createJob(sobject, accessToken, instanceUrl){
 }
 
 function addBatch(jobId, accessToken, instanceUrl){
-  const content = fs.readFileSync('./config/account.csv').toString();
+  const content = fs.readFileSync('./config/account.csv');
   console.log(content);
   const options = {
     method  : 'PUT',
@@ -56,7 +54,7 @@ function addBatch(jobId, accessToken, instanceUrl){
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log(body);
-          //closeJob(jobId, accessToken, instanceUrl);
+          closeJob(jobId, accessToken, instanceUrl);
         }else{
           console.log('Unexpected Error!');
           console.log(response);
@@ -94,7 +92,7 @@ function closeJob(jobId, accessToken, instanceUrl){
   );
 }
 
-function getResults(jobId, accessToken, instanceUrl){
+/*function getResults(jobId, accessToken, instanceUrl){
   const options = {
     method  : 'GET',
     headers : {
@@ -117,7 +115,7 @@ function getResults(jobId, accessToken, instanceUrl){
         }
     }
   );
-}
+}*/
 
 (function () {
   'use strict';

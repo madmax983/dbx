@@ -9,28 +9,49 @@ const codeCreate = require('../../lib/code_create.js');
   'use strict';
 
   module.exports = {
-    topic: 'apex',
-    command: 'create',
-    description: 'Create trigger handler class using SObjectDomain framework',
+    topic: 'code',
+    command: 'class',
+    description: 'Apex class creation',
     help: 'help text for apex:class:handler:create',
     flags: [{
+      name: 'apiname',
+      char: 'n',
+      description: 'api name of the class',
+      hasValue: true,
+      required: true
+    },{
       name: 'orgname',
       char: 'u',
       description: 'name of scratch org',
+      hasValue: true,
+      required: false
+    },{
+      name: 'push',
+      description: 'push class automatically to scratch org after creation',
+      hasValue: false
+    },{
+      name: 'template',
+      char: 't',
+      description: 'apex class template, choose one of the following available tempplates:\nConstructor\nNoConstructor\nBatch\nServiceClass\nException',
+      hasValue: true
+    },{
+      name: 'apiversion',
+      char: 'v',
+      description: 'Api version of metadata, default 42.0',
       hasValue: true
     }],
     run(context) {
-      const template = context.flags.template;
-      const name = context.flags.name;
+      const template = context.flags.template !== undefined ? context.flags.template : 'Constructor';
+      const orgname = context.flags.orgname;
+      const apiname = context.flags.apiname;
       const outputdir = context.flags.outputdir;
-      const vars = context.flags.vars;
+      const apiversion = context.flags.apiversion !== undefined ? context.flags.apiversion : '42.0';
+      const autopush = context.flags.push !== undefined;
 
-      let templateFolder = path.join(os.homedir(), '.sfdx-templates', template);
-      if (!fse.existsSync(templateFolder)) {
-        templateFolder = path.join(__dirname, '../../templates', template);
-      }
+      const vars = `api_name=${apiname},api_version=${apiversion}`;
 
-      codeCreate.createFiles(templateFolder, name, template, vars, outputdir, (err, success) => {
+      let templateFolder = path.join(__dirname, '../../templates/apex');
+      codeCreate.createFiles(templateFolder, apiname, template, vars, outputdir, (err, success) => {
 
         if (err) {
           console.error('ERROR:', err);
