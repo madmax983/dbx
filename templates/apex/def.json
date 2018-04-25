@@ -58,5 +58,17 @@
 			["apex.cls-meta.xml", "cls-meta.xml"]
 		],
 		"bundle": false
+	},
+	"TestClass" : {
+		"label": "UnitTestApexClass",
+		"vars": [
+			"api_name",
+			"api_version"
+		],
+		"files": [
+			["UnitTestApexClass.cls", "cls"],
+			["apex.cls-meta.xml", "cls-meta.xml"]
+		],
+		"bundle": false
 	}
 }

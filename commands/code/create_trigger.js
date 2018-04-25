@@ -133,6 +133,7 @@ function createFiles(templateFolder, sobject, vars, done) {
           }else{
             console.log(exec(`sfdx force:source:push -f -g`).toString());   
           }
+        }
       });
     }
   };

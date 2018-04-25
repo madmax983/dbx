@@ -32,7 +32,7 @@ const codeCreate = require('../../lib/code_create.js');
     },{
       name: 'template',
       char: 't',
-      description: 'apex class template, choose one of the following available tempplates:\nConstructor\nNoConstructor\nBatch\nServiceClass\nException',
+      description: 'apex class template, choose one of the following available tempplates:\nConstructor\nNoConstructor\nBatch\nServiceClass\nException\nTestClass',
       hasValue: true
     },{
       name: 'apiversion',
