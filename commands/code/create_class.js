@@ -26,19 +26,19 @@ const codeCreate = require('../../lib/code_create.js');
       hasValue: true,
       required: false
     },{
-      name: 'push',
-      description: 'push class automatically to scratch org after creation',
-      hasValue: false
-    },{
       name: 'template',
       char: 't',
-      description: 'apex class template, choose one of the following available tempplates:\nConstructor\nNoConstructor\nBatch\nServiceClass\nException\nTestClass',
+      description: 'apex class template, choose one of the following available tempplates:\nConstructor(default)\nNoConstructor\nBatch\nSchedulable\nServiceClass\nException\nTestClass',
       hasValue: true
     },{
       name: 'apiversion',
       char: 'v',
       description: 'Api version of metadata, default 42.0',
       hasValue: true
+    },{
+      name: 'push',
+      description: 'push class automatically to scratch org after creation',
+      hasValue: false
     }],
     run(context) {
       const template = context.flags.template !== undefined ? context.flags.template : 'Constructor';

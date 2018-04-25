@@ -35,6 +35,18 @@
 		],
 		"bundle": false
 	},
+	"Schedulable" : {
+		"label": "SchedulableApexClass",
+		"vars": [
+			"api_name",
+			"api_version"
+		],
+		"files": [
+			["SchedulableApexClass.cls", "cls"],
+			["apex.cls-meta.xml", "cls-meta.xml"]
+		],
+		"bundle": false
+	},
 	"ServiceClass" : {
 		"label": "ServiceClass",
 		"vars": [

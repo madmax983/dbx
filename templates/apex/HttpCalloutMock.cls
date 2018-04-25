@@ -6,7 +6,7 @@ public class {{api_name}} implements HttpCalloutMock {
     protected String body;
     protected Map<String, String> responseHeaders;
 
-    public {{ api_name }}(Integer code, String status, String body, Map<String, String> responseHeaders) {
+    public {{api_name}}(Integer code, String status, String body, Map<String, String> responseHeaders) {
         this.code = code;
         this.status = status;
         this.body = body;
