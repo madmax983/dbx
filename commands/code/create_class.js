@@ -59,6 +59,15 @@ const codeCreate = require('../../lib/code_create.js');
         }
 
         console.log(success);
+        if (autopush){
+          const exec = require('child_process').execSync;
+          if (orgname){
+            console.log(exec(`sfdx force:source:push -f -g -u ${orgname}`).toString());   
+          }else{
+            console.log(exec(`sfdx force:source:push -f -g`).toString());   
+          }
+          
+        }
       });
     }
   };

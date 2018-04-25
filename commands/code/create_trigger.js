@@ -92,13 +92,25 @@ function createFiles(templateFolder, sobject, vars, done) {
       description: 'SObject',
       hasValue: true,
       required: true
+    },{
+      name: 'push',
+      description: 'push files automatically to scratch org after creation',
+      hasValue: false
+    },{
+      name: 'apiversion',
+      char: 'v',
+      description: 'Api version of metadata, default 42.0',
+      hasValue: true
     }],
     run(context) {
-      const sobject = context.flags.sobject
+      const sobject = context.flags.sobject;
+      const autopush = context.flags.push !== undefined;
+      const apiversion = context.flags.apiversion !== undefined ? context.flags.apiversion : '42.0';
       const template = 'trigger';
+
       const vars =  'className='+sobject.replace('__c','').replace('_','') + 'TriggerHandler,'+
                     'triggerName='+sobject.replace('__c','').replace('_','') + 'Trigger,'+
-                    'apiName=42.0,'+
+                    'apiName='+apiversion+','+
                     'sobject='+sobject;
 
       let templateFolder = path.join(os.homedir(), '.sfdx-templates', template);
@@ -114,6 +126,13 @@ function createFiles(templateFolder, sobject, vars, done) {
         }
 
         console.log(success);
+        if (autopush){
+          const exec = require('child_process').execSync;
+          if (orgname){
+            console.log(exec(`sfdx force:source:push -f -g -u ${orgname}`).toString());   
+          }else{
+            console.log(exec(`sfdx force:source:push -f -g`).toString());   
+          }
       });
     }
   };
