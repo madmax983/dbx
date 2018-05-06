@@ -1,4 +1,3 @@
-const forceUtils = require('../../lib/forceUtils.js');
 const exec = require('child_process').execSync;
 const path = require('path');
 const fs = require('fs');

@@ -1,0 +1,8 @@
+	<labels>
+		<fullName>{{name}}</fullName>
+		<categories>{{categories}}</categories>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>{{description}}</shortDescription>
+		<value>{{value}}</value>
+	</labels>

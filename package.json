@@ -18,7 +18,7 @@
     "salesforce-dx",
     "salesforcedx",
     "oss"
-  ],  
+  ],
   "dependencies": {
     "async": "^2.1.5",
     "child_process": "^1.0.2",
@@ -28,11 +28,11 @@
     "jsforce": "^1.7.1",
     "jsonfile": "^2.4.0",
     "node-forge": "^0.7.1",
+    "path": "^0.12.7",
     "recursive-readdir": "^2.1.1",
     "request": "^2.81.0",
     "salesforce-alm": "^40.0.6",
-    "url-exists": "^1.0.3",
-    "path": "^0.12.7"
+    "url-exists": "^1.0.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",

@@ -3,7 +3,7 @@
 A plugin for the Salesforce CLI built by David Browaeys containing a lot of helpful commands.
 
 ## Pre-requisite
-1. Install the [SDFX CLI](https://developer.salesforce.com/tools/sfdxcli) if you haven't already and [NPM](https://nodejs.org/). 
+1. Install [SDFX CLI](https://developer.salesforce.com/tools/sfdxcli) 
 
 2. Install [node.js. + npm](https://nodejs.org/en/). 
 Once installed, checkout proxy setting if you are behind corporate proxy.
@@ -13,7 +13,8 @@ Once installed, checkout proxy setting if you are behind corporate proxy.
     ```shell
     npm install -g yarn
     ```
-    2. from website (easiest): https://yarnpkg.com/en/ 
+    2. from [website](https://yarnpkg.com/en/) (easiest)
+
 Once installed, checkout proxy setting if you are behind corporate proxy.
 
 ## Proxy Settings
@@ -57,9 +58,11 @@ Once installed, checkout proxy setting if you are behind corporate proxy.
     sfdx plugins:link
     ```
 
-## ENV Commands
+## Usage
 
-### Create dbx scratch org with code and data
+### ENV commands
+
+#### Create dbx scratch org with code and data
 
 ```shell
 Usage: sfdx dbx:env:create
@@ -77,7 +80,7 @@ help text for dbx:env:create
 ```
 
 
-### Deploy source code
+#### Deploy source code
 
 ```shell
 Usage: sfdx dbx:env:deploy
@@ -91,7 +94,7 @@ Flags:
 help text for dbx:env:deploy
 ```
 
-### Full or delta data backup
+#### Full or delta data backup
 
 ```shell
 Usage: sfdx dbx:env:backup
@@ -107,9 +110,9 @@ Flags:
 help text for dbx:env:backup
 ```
 
-## Code Commands
+### Code Commands
 
-### Create class
+#### Create class
 
 ```shell
 Usage: sfdx dbx:code:class
@@ -133,7 +136,7 @@ Flags:
 help text for apex:class:handler:create
 ``` 
 
-### Create trigger
+#### Create trigger
 
 ```shell
 Usage: sfdx dbx:code:trigger
@@ -146,9 +149,9 @@ Flags:
 help text for dbx:code:trigger
 ```
 
-## Static Resource
+### Static Resource
 
-### Create
+#### Create
 
 ```shell
 Usage: sfdx dbx:static:create
