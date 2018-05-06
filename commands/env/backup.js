@@ -15,7 +15,7 @@ function saveRuntime(config) {
             topic: 'env',
             command: 'backup',
             description: 'Perform data backup of target environment',
-            help: 'help text for nab:env:backup',
+            help: 'help text for dbx:env:backup',
             flags: [{
                 name: 'orgname',
                 char: 'u',
