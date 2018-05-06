@@ -1,12 +1,12 @@
 {
-  "name": "nab-cli",
+  "name": "dbx-cli",
   "version": "0.0.1",
-  "description": "A plugin for the Salesforce CLI built by David Browaeys @Nab.",
+  "description": "A plugin for the Salesforce CLI built by David Browaeys.",
   "main": "index.js",
   "author": "David Browaeys",
-  "repository": "davidbrowaeys/nab-cli",
+  "repository": "davidbrowaeys/dbx",
   "bugs": {
-    "url": "https://github.com/davidbrowaeys/nab-cli/issues"
+    "url": "https://github.com/davidbrowaeys/dbx/issues"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha",
