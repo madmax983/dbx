@@ -3,19 +3,16 @@
   'use strict';
   exports.topics = [{
     name: 'env',
-    description: 'env utilites'
+    description: 'various commands to facilitate the creation of a scratch org, ...'
   },{
     name: 'code',
-    description: 'apex utilities'
+    description: 'various commands to create apex class, apex triggers, ...'
   },{
     name: 'data',
-    description: 'data utilities'
+    description: 'some cool stuffs around data manipulations'
   },{
-    name: 'static',
-    description: 'static resource utilities'
-  },{
-    name: 'label',
-    description: 'label utlities'
+    name: 'config',
+    description: 'multiple config utilities such as static resource, label, ...'
   }];
 
   exports.namespace = {

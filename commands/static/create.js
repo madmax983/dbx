@@ -184,8 +184,8 @@ function getContentType(ext) {
     (function() {
         'use strict';
         module.exports = {
-            topic: 'static',
-            command: 'create',
+            topic: 'config',
+            command: 'static',
             description: 'Create static resource',
             help: 'help text for nab:static:create',
             flags: [{

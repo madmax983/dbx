@@ -16,8 +16,8 @@ function updateContent(content, values) {
     'use strict';
 
     module.exports = {
-        topic: 'label',
-        command: 'create',
+        topic: 'config',
+        command: 'label',
         description: 'Create custom label',
         help: 'help text for dbx:label:create',
         flags: [{
