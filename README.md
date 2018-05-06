@@ -149,12 +149,12 @@ Flags:
 help text for dbx:code:trigger
 ```
 
-### Static Resource
+### Configuration
 
-#### Create
+#### Create static resource
 
 ```shell
-Usage: sfdx dbx:static:create
+Usage: sfdx dbx:config:create
 
 Create static resource
 
@@ -163,6 +163,24 @@ Flags:
 -d, --description DESCRIPTION    (required) description
 -f, --file FILE                  (required) path of the file to create
 -n, --name NAME                  (required) static resource name
+--push                           push to scratch org
 
 help text for dbx:static:create
+```
+
+#### Create custom label
+
+```shell
+Usage: sfdx dbx:config:label 
+
+Create custom label
+
+Flags:
+ -c, --categories CATEGORIES  categories
+ -n, --name NAME              (required) name of custom label
+ -u, --orgname ORGNAME        name of scratch org
+ -v, --value VALUE            (required) value
+ --push                       push to scratch org
+
+help text for dbx:label:create
 ```
