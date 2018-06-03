@@ -24,7 +24,14 @@ var js2xmlparser = require('js2xmlparser');
         run(context) {
             let profilename = context.flags.profilename;
             var profilepath = './force-app/main/default/profiles/'+profilename;
-            var profile = {};
+            //profile
+            var profilesetting = JSON.parse(fs.readFileSync(profilepath+'/'+profilename+'.json').toString());
+
+            var profile = {
+                '@': { xmlns: 'http://soap.sforce.com/2006/04/metadata' },
+                'custom' : profilesetting.custom,
+                'userLicense' : profilesetting.userLicense
+            };
 
             //classAccess
             profile.classAccesses = [];
@@ -33,11 +40,35 @@ var js2xmlparser = require('js2xmlparser');
                     profile.classAccesses = JSON.parse(fs.readFileSync(profilepath+'/classAccesses/'+file).toString());
                 });
             }
-            //objectPermissions
+            //customPermissions
+            profile.customPermissions = [];
+            if (fs.existsSync(profilepath+'/customPermissions')) {
+                fs.readdirSync(profilepath+'/customPermissions').forEach(file => {
+                    profile.customPermissions.push(JSON.parse(fs.readFileSync(profilepath+'/customPermissions/'+file).toString()));
+                });
+            }
+            //objects
             profile.objectPermissions = [];
+            profile.fieldPermissions = [];
             if (fs.existsSync(profilepath+'/objectPermissions')) {
                 fs.readdirSync(profilepath+'/objectPermissions').forEach(file => {
-                    profile.objectPermissions.push(JSON.parse(fs.readFileSync(profilepath+'/objectPermissions/'+file).toString()));
+                    var objectpath = profilepath+'/objectPermissions/'+file;
+                    //objectPermissions
+                    if (fs.existsSync(objectpath+'/'+file+'.json')){
+                        profile.objectPermissions.push(JSON.parse(fs.readFileSync(objectpath+'/'+file+'.json').toString()));
+                    }
+                    //fieldPermissions
+                    if (fs.existsSync(objectpath+'/fieldPermissions')){
+                        fs.readdirSync(objectpath+'/fieldPermissions').forEach(file => {
+                            profile.fieldPermissions.push(JSON.parse(fs.readFileSync(objectpath+'/fieldPermissions/'+file).toString()));
+                        });
+                    }
+                    //recordTypeVisibilities
+                    if (fs.existsSync(objectpath+'/recordTypeVisibilities')){
+                        fs.readdirSync(objectpath+'/recordTypeVisibilities').forEach(file => {
+                            profile.recordTypeVisibilities.push(JSON.parse(fs.readFileSync(objectpath+'/recordTypeVisibilities/'+file).toString()));
+                        });
+                    }
                 });
             }
             //layoutAssignments
@@ -47,6 +78,20 @@ var js2xmlparser = require('js2xmlparser');
                     profile.layoutAssignments.push(JSON.parse(fs.readFileSync(profilepath+'/layoutAssignments/'+file).toString()));
                 });
             }
+            //pageAccesses
+            profile.pageAccesses = [];
+            if (fs.existsSync(profilepath+'/pageAccesses')) {
+                fs.readdirSync(profilepath+'/pageAccesses').forEach(file => {
+                    profile.pageAccesses.push(JSON.parse(fs.readFileSync(profilepath+'/pageAccesses/'+file).toString()));
+                });
+            }
+            //tabVisibilities
+            profile.tabVisibilities = [];
+            if (fs.existsSync(profilepath+'/tabVisibilities')) {
+                fs.readdirSync(profilepath+'/tabVisibilities').forEach(file => {
+                    profile.tabVisibilities.push(JSON.parse(fs.readFileSync(profilepath+'/tabVisibilities/'+file).toString()));
+                });
+            }
             //userPermissions
             profile.userPermissions = [];
             if (fs.existsSync(profilepath+'/userPermissions')) {
@@ -54,9 +99,10 @@ var js2xmlparser = require('js2xmlparser');
                     profile.userPermissions.push(JSON.parse(fs.readFileSync(profilepath+'/userPermissions/'+file).toString()));
                 });
             }
-            console.log(JSON.stringify(profile,null,2));
+            //console.log(JSON.stringify(profile,null,2));
             var xml = js2xmlparser.parse("Profile",profile);
             console.log(xml);
+            fs.writeFileSync('./force-app/main/default/profiles/'+profilename+'2.profile-meta.xml', xml);
         }
     };
 }());

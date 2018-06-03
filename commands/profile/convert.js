@@ -32,6 +32,11 @@ var parser = require('xml2json');
                     fs.mkdirSync(profilepath);
                 }
                 var result = JSON.parse(parser.toJson(data));
+                //profile
+                fs.writeFileSync(profilepath+'/'+profilename+'.json', JSON.stringify({
+                    "custom" : result.Profile.custom,
+                    "userLicense" : result.Profile.userLicense
+                }, null, 2));
                 //classAccesses
                 if (result.Profile.classAccesses){
                     if (!fs.existsSync(profilepath+'/classAccesses')) {
