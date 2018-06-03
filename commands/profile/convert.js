@@ -162,6 +162,7 @@ var parser = require('xml2json');
                         fs.writeFileSync(profilepath+'/userPermissions/'+elem.name+'.json', JSON.stringify(elem, null, 2));
                     });
                 }
+                console.log('Profile parse to json files successfully!');
             });
         }
     };
