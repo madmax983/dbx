@@ -32,7 +32,9 @@
     "recursive-readdir": "^2.1.1",
     "request": "^2.81.0",
     "salesforce-alm": "^40.0.6",
-    "url-exists": "^1.0.3"
+    "url-exists": "^1.0.3",
+    "js2xmlparser": "^3.0.0",
+    "xml2json":"^0.11.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -43,6 +45,8 @@
     "np": "^2.13.1",
     "shelljs": "^0.7.7",
     "sinon": "^1.17.7",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "js2xmlparser": "^3.0.0",
+    "xml2json":"^0.11.2"
   }
 }

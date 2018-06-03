@@ -13,6 +13,9 @@
   },{
     name: 'config',
     description: 'multiple config utilities such as static resource, label, ...'
+  },{
+    name: 'profile',
+    description: 'profile converter'
   }];
 
   exports.namespace = {
@@ -28,6 +31,8 @@
     require('./commands/code/create_trigger.js'),
     require('./commands/data/bulk_insert.js'),
     require('./commands/static/create.js'),
-    require('./commands/label/create.js')
+    require('./commands/label/create.js'),
+    require('./commands/profile/convert.js'),
+    require('./commands/profile/build.js')
   ];
 }());
