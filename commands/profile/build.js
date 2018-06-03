@@ -102,7 +102,7 @@ var js2xmlparser = require('js2xmlparser');
             //console.log(JSON.stringify(profile,null,2));
             var xml = js2xmlparser.parse("Profile",profile);
             console.log(xml);
-            fs.writeFileSync('./force-app/main/default/profiles/'+profilename+'2.profile-meta.xml', xml);
+            fs.writeFileSync('./force-app/main/default/profiles/'+profilename+'.profile-meta.xml', xml);
         }
     };
 }());
