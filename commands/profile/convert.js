@@ -142,7 +142,6 @@ function convertProfile(profilename){
                 fs.writeFileSync(profilepath+'/userPermissions/'+elem.name+'.json', JSON.stringify(elem, null, 2));
             });
         }
-        console.log('Profile parse to json files successfully!');
     });
 }
 
@@ -169,10 +168,13 @@ function convertProfile(profilename){
                 convertProfile(profilename);    
             }else{
                 fs.readdirSync('./force-app/main/default/profiles').forEach(file => {
-                    profilename = file.split('.')[0];
-                    convertProfile(profilename);
+                    if (file.indexOf('profile-meta.xml') >= 0){
+                        profilename = file.split('.')[0];
+                        convertProfile(profilename);
+                    }
                 });
             }
+            console.log('Profile(s) parse to json files successfully!');
         }
     };
 }());
