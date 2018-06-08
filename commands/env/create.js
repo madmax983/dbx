@@ -108,7 +108,14 @@ function create_user(orgname, user_alias_prefix, user_def_file) {
                 required: false
             }],
             run(context) {
-                let config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+                let config;
+                if (!fs.existsSync('./config/dbx-cli-def.json')) {
+                    config = fs.readFileSync(path.join(__dirname, '../../templates', 'dbx-cli-def.json')).toString();
+                    fs.writeFileSync('./config', defjson);
+                }else{
+                    config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
+                }
+                
                 let orgname = context.flags.orgname;
                 let defaultorg = context.flags.defaultorg ? '-s' : '';
                 let durationdays = context.flags.durationdays ? context.flags.durationdays : config.defaultdurationdays;
