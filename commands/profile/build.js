@@ -4,9 +4,9 @@ const fs = require('fs');
 const os = require('os');
 var js2xmlparser = require('js2xmlparser');
 
-function buildProfile(profilename){
+function buildProfile(profilename, dirpath){
     console.log(profilename);
-    var profilepath = './force-app/main/default/profiles/'+profilename;
+    var profilepath = `${dirpath}/${profilename}`;
     //profile
     var profilesetting = JSON.parse(fs.readFileSync(profilepath+'/'+profilename+'.json').toString());
 
@@ -82,9 +82,8 @@ function buildProfile(profilename){
             profile.userPermissions.push(JSON.parse(fs.readFileSync(profilepath+'/userPermissions/'+file).toString()));
         });
     }
-    //console.log(JSON.stringify(profile,null,2));
     var xml = js2xmlparser.parse("Profile",profile);
-    fs.writeFileSync('./force-app/main/default/profiles/'+profilename+'.profile-meta.xml', xml);
+    fs.writeFileSync(`${dirpath}/${profilename}+'.profile-meta.xml`, xml);
 }
 
 (function() {
@@ -102,14 +101,26 @@ function buildProfile(profilename){
             description: 'convert specified profile',
             hasValue: true,
             required: false
+        },{
+            name: 'resourcepath',
+            char: 'r',
+            description: 'resource directory path to store files, default to force-app/main/default',
+            hasValue: true,
+            required: false
         }],
 
         run(context) {
             var profilename = context.flags.profilename;
+            var resourcepath = context.flags.resourcepath;
+
+            if (!resourcepath){
+                resourcepath = './force-app/main/default/profiles';
+            }
+
             if (profilename){
-                buildProfile(profilename);    
+                buildProfile(profilename, resourcepath);    
             }else{
-                fs.readdirSync('./force-app/main/default/profiles').forEach(file => {
+                fs.readdirSync(resourcepath).forEach(file => {
                     if (file.indexOf('profile-meta.xml') >= 0){
                         profilename = file.split('.')[0];
                         buildProfile(profilename);
