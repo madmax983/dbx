@@ -8,14 +8,6 @@ A plugin for the Salesforce CLI built by David Browaeys containing a lot of help
 2. Install [node.js. + npm](https://nodejs.org/en/). 
 Once installed, checkout proxy setting if you are behind corporate proxy.
 
-3. Install yarn (as a admin) :
-    1. using npm in terminal(not always works):
-    ```shell
-    npm install -g yarn
-    ```
-    2. from [website](https://yarnpkg.com/en/) (easiest)
-
-Once installed, checkout proxy setting if you are behind corporate proxy.
 
 ## Proxy Settings
 
@@ -27,16 +19,6 @@ Once installed, checkout proxy setting if you are behind corporate proxy.
     npm config set sslVerify false
     npm config set strict-ssl false
     ```
-
-2. Config yarm proxy (same way as npm) one by one in a new terminal(no admin required)
-
-    ```shell
-    yarn config set https-proxy http://address:port
-    yarn config set proxy http://address:port
-    yarn config set sslVerify false
-    yarn config set strict-ssl false
-    ```
-
 
 ## Install DBX-CLI
 
@@ -55,7 +37,7 @@ Once installed, checkout proxy setting if you are behind corporate proxy.
 6. Link dbx-cli plugin to SFDX (non admin), go to dbx-cli folder and execute
 
     ```shell
-    sfdx plugins:link
+    sfdx plugins:link .
     ```
 
 ## Usage
