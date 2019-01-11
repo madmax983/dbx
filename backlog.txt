@@ -1,5 +1,0 @@
-BACKLOG : 
-- sync deployment : convert + deploy + check status until success
-- code generator : base on nab framework
-- rest client
-- bulk api 2.0
