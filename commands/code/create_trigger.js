@@ -85,7 +85,7 @@ function createFiles(templateFolder, sobject, vars, done) {
     topic: 'code',
     command: 'trigger',
     description: 'Create trigger handler class using SObjectDomain framework',
-    help: 'help text for dbx:code:trigger',
+    help: 'help text for nab:code:trigger',
     flags: [{
       name: 'sobject',
       char: 'o',
@@ -93,24 +93,21 @@ function createFiles(templateFolder, sobject, vars, done) {
       hasValue: true,
       required: true
     },{
-      name: 'push',
-      description: 'push files automatically to scratch org after creation',
-      hasValue: false
-    },{
       name: 'apiversion',
       char: 'v',
-      description: 'Api version of metadata, default 42.0',
-      hasValue: true
+      description: 'api version',
+      hasValue: true,
+      required: false
     }],
     run(context) {
+      let config = JSON.parse(fs.readFileSync('./sfdx-project.json').toString());
       const sobject = context.flags.sobject;
-      const autopush = context.flags.push !== undefined;
-      const apiversion = context.flags.apiversion !== undefined ? context.flags.apiversion : '42.0';
-      const template = 'trigger';
+      const apiversion = context.flags.apiversion ? context.flags.apiversion : config.sourceApiVersion;
 
-      const vars =  'className='+sobject.replace('__c','').replace('_','') + 'TriggerHandler,'+
+      const template = 'trigger';
+      const vars =  'className='+sobject.replace('__c','').replace('_','') + 'Handler,'+
                     'triggerName='+sobject.replace('__c','').replace('_','') + 'Trigger,'+
-                    'apiName='+apiversion+','+
+                    'apiVersion='+apiversion+','+
                     'sobject='+sobject;
 
       let templateFolder = path.join(os.homedir(), '.sfdx-templates', template);
@@ -126,14 +123,6 @@ function createFiles(templateFolder, sobject, vars, done) {
         }
 
         console.log(success);
-        if (autopush){
-          const exec = require('child_process').execSync;
-          if (orgname){
-            console.log(exec(`sfdx force:source:push -f -g -u ${orgname}`).toString());   
-          }else{
-            console.log(exec(`sfdx force:source:push -f -g`).toString());   
-          }
-        }
       });
     }
   };

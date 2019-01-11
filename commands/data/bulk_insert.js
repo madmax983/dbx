@@ -24,6 +24,7 @@ function createJob(sobject, accessToken, instanceUrl){
   request(options,
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
+          console.log(body);          
           console.log('Job created['+body.id+'] successfully...');
           addBatch(body.id, accessToken, instanceUrl);
         }else{
@@ -34,33 +35,63 @@ function createJob(sobject, accessToken, instanceUrl){
   );
 }
 
+const fileToBuffer = (filename, cb) => {
+  let readStream = fs.createReadStream(filename);
+  let chunks = [];
+
+  // Handle any errors while reading
+  readStream.on('error', err => {
+      // handle error
+
+      // File could not be read
+      return cb(err);
+  });
+
+  // Listen for data
+  readStream.on('data', chunk => {
+      chunks.push(chunk);
+  });
+
+  // File is done being read
+  readStream.on('close', () => {
+      // Create a buffer of the image from the stream
+      return cb(null, Buffer.concat(chunks));
+  });
+}
+
 function addBatch(jobId, accessToken, instanceUrl){
-  const content = fs.readFileSync('./config/account.csv');
-  console.log(content);
-  const options = {
-    method  : 'PUT',
-    headers : {
-                'Content-Type' : 'text/csv',
-                'Accept' : 'application/json',
-                'Authorization' : 'Bearer '+accessToken,
-                'X-SFDC-Session' : accessToken
-              },
-    url     : instanceUrl+'/services/data/v42.0/jobs/ingest/'+jobId+'/batches',
-    json: true,
-    body    : content
-  };
-  console.log(options);
-  request(options,
-    function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          console.log(body);
-          closeJob(jobId, accessToken, instanceUrl);
-        }else{
-          console.log('Unexpected Error!');
-          console.log(response);
+  fileToBuffer('./config/accounts2.csv', (err, imageBuffer) => {
+    if (err) { 
+      console.log(err);
+    } else {
+      const options = {
+        method  : 'PUT',
+        headers : {
+                    'Content-Type' : 'text/csv',
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer '+accessToken,
+                    'X-SFDC-Session' : accessToken
+                  },
+        url     : instanceUrl+'/services/data/v42.0/jobs/ingest/'+jobId+'/batches',
+        json: false,
+        body    : imageBuffer.toString()
+      };
+      request(options,
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              console.log(body);
+              //closeJob(jobId, accessToken, instanceUrl);
+            }else{
+              console.log('Unexpected Error!');
+              console.log(response);
+              console.log(imageBuffer.toString()); 
+            }
         }
+      );
     }
-  );
+  });
+
+  /**/
 }
 
 function closeJob(jobId, accessToken, instanceUrl){
@@ -92,7 +123,7 @@ function closeJob(jobId, accessToken, instanceUrl){
   );
 }
 
-/*function getResults(jobId, accessToken, instanceUrl){
+function getResults(jobId, accessToken, instanceUrl){
   const options = {
     method  : 'GET',
     headers : {
@@ -115,7 +146,7 @@ function closeJob(jobId, accessToken, instanceUrl){
         }
     }
   );
-}*/
+}
 
 (function () {
   'use strict';
@@ -124,7 +155,7 @@ function closeJob(jobId, accessToken, instanceUrl){
     topic: 'data',
     command: 'bulk2',
     description: 'Bulk api insert',
-    help: 'help text for dbx:data:bulk2',
+    help: 'help text for nab:data:bulk2',
     flags: [{
       name: 'orgname',
       char: 'u',
@@ -150,4 +181,3 @@ function closeJob(jobId, accessToken, instanceUrl){
     }
   };
 }());
-//{"status":0,"result":{"username":"test-btasevtomofl@example.com","devHubId":"david.browaeys@smsmt.demo.com","id":"00Dp00000008xgBEAQ","createdBy":"david.browaeys@smsmt.demo.com","createdDate":"2018-03-30T22:20:25.000+0000","expirationDate":"2018-04-29","status":"Active","edition":"Enterprise","orgName":"davidbrowaeys Company","accessToken":"00Dp00000008xgB!AREAQK3qHT6hCoCL0RG.mFfRn4wzpk9D2SNGXKip8O1MFGDFnxMr0AloysB5dRcUxUiVOlhvJjRFGgHqhmpH18c3IkWkIL7x","instanceUrl":"https://computing-energy-7259.cs31.my.salesforce.com","clientId":"SalesforceDevelopmentExperience","alias":"undefined"}}

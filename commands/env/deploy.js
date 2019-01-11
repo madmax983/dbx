@@ -1,6 +1,5 @@
+const forceUtils = require('../../lib/forceUtils.js');
 const exec = require('child_process').execSync;
-const path = require('path');
-const fs = require('fs');
 
 (function () {
   'use strict';
@@ -9,42 +8,44 @@ const fs = require('fs');
     topic: 'env',
     command: 'deploy',
     description: 'Convert DX files to metadata and deploy to target env',
-    help: 'help text for dbx:env:deploy',
+    help: 'help text for nab:env:deploy',
     flags: [{
       name: 'orgname',
       char: 'u',
       description: 'name of scratch org',
       hasValue: true,
       required: true
+    },{
+      name: 'checkonly',
+      char: 'c',
+      description: 'checkonly deployment',
+      hasValue: false,
+      required: false
+    },{
+      name: 'json',
+      description: 'return json format',
+      hasValue: false,
+      required: false
     }],
     run(context) {
       let orgname = context.flags.orgname;
-      
-      console.log('Convert DX files to metadata...');
-      console.log(exec(`sfdx force:source:convert --outputdir ./src --packagename nab`).toString());
+	    let isjson = context.flags.json !== undefined ? '--json' : '';
+      let checkonly = context.flags.checkonly !== undefined ? '-c' : '';
+      console.log('\x1b[31m%s\x1b[0m', 'Convert DX files to metadata...');
+      console.log(exec(`sfdx force:source:convert --outputdir ./src`).toString());
 
       console.log('Deploy source to org...');
-      let stdout = JSON.parse(exec(`sfdx force:mdapi:deploy --deploydir ./src -u ${orgname} --json`).toString());
+      let stdout = JSON.parse(exec(`sfdx force:mdapi:deploy --deploydir ./src -u ${orgname} ${checkonly} --json`).toString());
       let jobId = stdout.result.id;
       console.log('Job['+jobId+'] has been added to the Queue...');
 
       while(true){
-        stdout = JSON.parse(exec(`sfdx force:mdapi:deploy:report -i ${jobId} --json`).toString());
+        stdout = JSON.parse(exec(`sfdx force:mdapi:deploy:report -i ${jobId} -u ${orgname} --json`).toString());
         if (stdout.result.done){
           break;
         }
       }
-      console.log(exec(`sfdx force:mdapi:deploy:report -i ${jobId}`).toString());
+      console.log(exec(`sfdx force:mdapi:deploy:report -i ${jobId} ${isjson}`).toString());
     }
   };
 }());
-
-/*
-{"status":0,"result":{"checkOnly":false,"completedDate":"2018-03-31T10:04:12.000Z",
-"createdBy":"0050l0000015e8a","createdByName":"User User","createdDate":"2018-03-31T10:04:09.000Z",
-"details":{"componentSuccesses":{"changed":"false","componentType":"ApexClass","created":"false","createdDate":"2018-03-31T10:04:11.000Z",
-"deleted":"false","fileName":"src/classes/AccountTriggerHandler.cls","fullName":"AccountTriggerHandler",
-"id":"01p0l000000MzLBAA0","success":"true"},
-"runTestResult":{"numFailures":"0","numTestsRun":"0","totalTime":"0.0"}},
-"done":true,"id":"0Af0l00000HWXJQCA5","ignoreWarnings":false,"lastModifiedDate":"2018-03-31T10:04:12.000Z","numberComponentErrors":0,"numberComponentsDeployed":1,"numberComponentsTotal":1,"numberTestErrors":0,"numberTestsCompleted":0,"numberTestsTotal":0,"rollbackOnError":true,"runTestsEnabled":"false","startDate":"2018-03-31T10:04:09.000Z","status":"Succeeded","success":true}}
-*/

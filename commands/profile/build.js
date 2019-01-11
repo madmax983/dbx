@@ -4,9 +4,9 @@ const fs = require('fs');
 const os = require('os');
 var js2xmlparser = require('js2xmlparser');
 
-function buildProfile(profilename, dirpath){
+function buildProfile(profilename){
     console.log(profilename);
-    var profilepath = `${dirpath}/${profilename}`;
+    var profilepath = './force-app/main/default/profiles/'+profilename;
     //profile
     var profilesetting = JSON.parse(fs.readFileSync(profilepath+'/'+profilename+'.json').toString());
 
@@ -15,12 +15,18 @@ function buildProfile(profilename, dirpath){
         'custom' : profilesetting.custom,
         'userLicense' : profilesetting.userLicense
     };
-
+    //applicationVisibilities
+    profile.applicationVisibilities = [];
+    if (fs.existsSync(profilepath+'/applicationVisibilities')) {
+        fs.readdirSync(profilepath+'/applicationVisibilities').forEach(file => {
+            profile.applicationVisibilities.push(JSON.parse(fs.readFileSync(profilepath+'/applicationVisibilities/'+file).toString()));
+        });
+    }
     //classAccess
     profile.classAccesses = [];
     if (fs.existsSync(profilepath+'/classAccesses')) {
         fs.readdirSync(profilepath+'/classAccesses').forEach(file => {
-            profile.classAccesses = JSON.parse(fs.readFileSync(profilepath+'/classAccesses/'+file).toString());
+            profile.classAccesses.push(JSON.parse(fs.readFileSync(profilepath+'/classAccesses/'+file).toString()));
         });
     }
     //customPermissions
@@ -33,6 +39,7 @@ function buildProfile(profilename, dirpath){
     //objects
     profile.objectPermissions = [];
     profile.fieldPermissions = [];
+    profile.recordTypeVisibilities = [];
     if (fs.existsSync(profilepath+'/objectPermissions')) {
         fs.readdirSync(profilepath+'/objectPermissions').forEach(file => {
             var objectpath = profilepath+'/objectPermissions/'+file;
@@ -82,8 +89,8 @@ function buildProfile(profilename, dirpath){
             profile.userPermissions.push(JSON.parse(fs.readFileSync(profilepath+'/userPermissions/'+file).toString()));
         });
     }
-    var xml = js2xmlparser.parse("Profile",profile);
-    fs.writeFileSync(`${dirpath}/${profilename}+'.profile-meta.xml`, xml);
+    var xml = js2xmlparser.parse("Profile", profile, { declaration: { encoding: 'UTF-8' }});
+    fs.writeFileSync('./force-app/main/default/profiles/'+profilename+'.profile-meta.xml', xml);
 }
 
 (function() {
@@ -101,26 +108,14 @@ function buildProfile(profilename, dirpath){
             description: 'convert specified profile',
             hasValue: true,
             required: false
-        },{
-            name: 'resourcepath',
-            char: 'r',
-            description: 'resource directory path to store files, default to force-app/main/default',
-            hasValue: true,
-            required: false
         }],
 
         run(context) {
             var profilename = context.flags.profilename;
-            var resourcepath = context.flags.resourcepath;
-
-            if (!resourcepath){
-                resourcepath = './force-app/main/default/profiles';
-            }
-
             if (profilename){
-                buildProfile(profilename, resourcepath);    
+                buildProfile(profilename);    
             }else{
-                fs.readdirSync(resourcepath).forEach(file => {
+                fs.readdirSync('./force-app/main/default/profiles').forEach(file => {
                     if (file.indexOf('profile-meta.xml') >= 0){
                         profilename = file.split('.')[0];
                         buildProfile(profilename);
