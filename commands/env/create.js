@@ -39,7 +39,7 @@ function deploy_legacy_packages(orgname, legacy_packages,type){
 }
 
 function prompt_user_manual_config(orgname, manual_steps){
-	console.log('Due to some limitations with DX scratch org, you must enable manually the following feature(s) before to proceed:');
+	console.log('Due to some limitations with DX scratch org, you must edbxle manually the following feature(s) before to proceed:');
 	manual_steps.forEach(function(elem) {
 		console.log(elem);
 	});
@@ -56,8 +56,8 @@ function prompt_user_manual_config(orgname, manual_steps){
 	}
 }
 
-function manuallyEnableTerritoryManagement(orgname) {
-	console.log('Due to some limitations with scratch orgs in DX, you must manually enable Territory Management:');
+function manuallyEdbxleTerritoryManagement(orgname) {
+	console.log('Due to some limitations with scratch orgs in DX, you must manually edbxle Territory Management:');
 
 	console.log(exec(`sfdx force:org:open -u ${orgname} -p /lightning/setup/Territory2Settings/home`).toString());
 	var stdin = require('readline-sync');
@@ -81,7 +81,7 @@ function includetrackinghistory(disableFeedTrackingObjects){
 function removeFeedTrackingHistoryInObject(objectName){
 	var objectPath = `./force-app/main/default/objects/${objectName}/${objectName}.object-meta.xml`;
 	var content = fs.readFileSync(objectPath).toString();
-	content = content.replace(new RegExp(`<enableHistory>.+</enableHistory>`,'g'), '<enableHistory>false</enableHistory>');
+	content = content.replace(new RegExp(`<edbxleHistory>.+</edbxleHistory>`,'g'), '<edbxleHistory>false</edbxleHistory>');
 	fs.writeFileSync(objectPath, content);
 
 	removeFeedTrackingHistoryInField(objectName);
@@ -116,7 +116,7 @@ function create_user(orgname, user_alias_prefix,user_def_file){
 	const suffix = Math.floor((Math.random() * 20000000) + 1);
 	if (!user_alias_prefix) user_alias_prefix = 'usr';
 	try{
-		exec(`sfdx force:user:create --setalias ${user_alias_prefix}-${orgname} --definitionfile ${user_def_file} username=user.${suffix}@nab-test.${orgname} -u ${orgname} > output.txt`);
+		exec(`sfdx force:user:create --setalias ${user_alias_prefix}-${orgname} --definitionfile ${user_def_file} username=user.${suffix}@dbx-test.${orgname} -u ${orgname} > output.txt`);
 	}catch(err){}
 	displayOutput();
 }
@@ -127,8 +127,8 @@ function create_user(orgname, user_alias_prefix,user_def_file){
 	module.exports = {
 		topic: 'env',
 		command: 'create',
-		description: 'Create nab standard scratch org',
-		help: 'help text for nab:env:create',
+		description: 'Create dbx standard scratch org',
+		help: 'help text for dbx:env:create',
 		flags: [{
 				name: 'orgname',
 				char: 'u',
@@ -155,7 +155,7 @@ function create_user(orgname, user_alias_prefix,user_def_file){
 		},{
 				name: 'includedata',
 				char: 'f',
-				description: 'indicate if nab data need to be imported',
+				description: 'indicate if dbx data need to be imported',
 				hasValue: false,
 				required: false
 		},{
@@ -172,18 +172,18 @@ function create_user(orgname, user_alias_prefix,user_def_file){
 				required: false	
 		}],
 		run(context) {
-				let config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+				let config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
 
 				let orgname = context.flags.orgname;
 				let defaultorg = context.flags.defaultorg ? '-s' : '';
 				let durationdays = context.flags.durationdays ? context.flags.durationdays : config.defaultdurationdays;   
-				console.log('\x1b[91m%s\x1b[0m', `Welcome to NAB DX! We are now creating your scratch org[${orgname}]...`);
+				console.log('\x1b[91m%s\x1b[0m', `Welcome to dbx DX! We are now creating your scratch org[${orgname}]...`);
 				if (context.flags.gitpull) git_pull();
 				
 				create_scratch_org(orgname, defaultorg, durationdays);
 
 				//UPDATE WORKFLOWS
-				console.log(exec(`sfdx nab:env:resetworkflow -u ${orgname}`).toString());
+				console.log(exec(`sfdx dbx:env:resetworkflow -u ${orgname}`).toString());
 
 				//DEPLOY PRE LEGACY PACKAGES
 				if (config.pre_legacy_packages) {
@@ -198,8 +198,8 @@ function create_user(orgname, user_alias_prefix,user_def_file){
 					prompt_user_manual_config(orgname, config.manual_steps);
 				}
 
-				//ENABLE TERRITORY MANAGEMENT
-				manuallyEnableTerritoryManagement(orgname); 
+				//EdbxLE TERRITORY MANAGEMENT
+				manuallyEdbxleTerritoryManagement(orgname); 
 
 				//INSTALL PACKAGES
 				if (context.flags.includepackages && config.packages) {

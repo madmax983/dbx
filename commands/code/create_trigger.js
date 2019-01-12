@@ -85,7 +85,7 @@ function createFiles(templateFolder, sobject, vars, done) {
     topic: 'code',
     command: 'trigger',
     description: 'Create trigger handler class using SObjectDomain framework',
-    help: 'help text for nab:code:trigger',
+    help: 'help text for dbx:code:trigger',
     flags: [{
       name: 'sobject',
       char: 'o',

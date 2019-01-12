@@ -27,7 +27,7 @@ function updateContent(varName, question) {
         topic: 'config',
         command: 'vr',
         description: 'Create validation rule',
-        help: 'help text for nab:config:vr',
+        help: 'help text for dbx:config:vr',
         flags: [{
             name: 'orgname',
             char: 'u',

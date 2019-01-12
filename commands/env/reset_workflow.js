@@ -22,7 +22,7 @@ function update_workflows(dirfile,username){
 		topic: 'env',
 		command: 'resetworkflow',
 		description: 'reset workflow ',
-		help: 'help text for nab:env:resetworkflow',
+		help: 'help text for dbx:env:resetworkflow',
 		flags: [{
 				name: 'orgname',
 				char: 'u',

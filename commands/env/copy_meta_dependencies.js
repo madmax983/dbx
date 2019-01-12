@@ -118,7 +118,7 @@ function processFile(filepath,userpermissions){
 		topic: 'delta',
 		command: 'meta:depend:copy',
 		description: 'command to copy metadata dependencies for delta deployment',
-		help: 'help text for nab:delta:meta:depend:copy',
+		help: 'help text for dbx:delta:meta:depend:copy',
 		flags: [{
 				name: 'targetdir',
 				char: 'r',
@@ -173,7 +173,7 @@ function processFile(filepath,userpermissions){
 				var f = files[i];
 				if (!f || f == '' || f.indexOf('force-app') < 0) continue;
 				
-				var basedir = 'force-app/main/default'; //store base folder (force-app) into nab cli config json file so we can easily change it 
+				var basedir = 'force-app/main/default'; //store base folder (force-app) into dbx cli config json file so we can easily change it 
 				if (f.indexOf('force-app/test') >= 0){
 					basedir = 'force-app/test';
 				}

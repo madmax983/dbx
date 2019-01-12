@@ -46,7 +46,7 @@ function push_source(orgname){
 		topic: 'env',
 		command: 'sync',
 		description: 'git pull origin develop + sfdx push',
-		help: 'help text for nab:env:sync',
+		help: 'help text for dbx:env:sync',
 		flags: [{
 				name: 'orgname',
 				char: 'u',

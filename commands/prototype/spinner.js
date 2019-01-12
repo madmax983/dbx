@@ -30,7 +30,7 @@ function spinnerSpawner(spinnerConfig, cmd, args) {
     topic: 'test',
     command: 'spinner',
     description: 'test cli spinner',
-    help: 'help text for nab:test:spinner',
+    help: 'help text for dbx:test:spinner',
     flags: [],
     run(context) {
       spinnerSpawner("Display list...", "sfdx", ["force:org:list"])
@@ -208,7 +208,7 @@ Loading unicornsOra {
      [Symbol(asyncId)]: 57,
      [Symbol(triggerAsyncId)]: 0 },
   frameIndex: 1,
-  enabled: true,
+  edbxled: true,
   lineCount: 1,
   linesToClear: 1,
   [Symbol(text)]: 'Loading unicorns' }

@@ -22,7 +22,7 @@ function update_workflows(dirfile,username){
 		topic: 'env',
 		command: 'businesscontext:set',
 		description: 'set business context ',
-		help: 'help text for nab:env:businesscontext:set',
+		help: 'help text for dbx:env:businesscontext:set',
 		flags: [{
 				name: 'businesscontext',
 				char: 'c',
@@ -31,10 +31,10 @@ function update_workflows(dirfile,username){
                 require:true
 		}],
 		run(context) {
-			let config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+			let config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
             let businesscontext = context.flags.businesscontext;
             config.currentBusinessContext = businesscontext;
-            fs.writeFileSync('./config/nab-cli-def.json',JSON.stringify(config, null, 2));
+            fs.writeFileSync('./config/dbx-cli-def.json',JSON.stringify(config, null, 2));
 		}
 };
 }());

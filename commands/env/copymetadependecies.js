@@ -96,7 +96,7 @@ function copyFolderRecursiveSync( source, target ) {
 		topic: 'delta',
 		command: 'meta:depend:copy2',
 		description: 'command to copy metadata dependencies for delta deployment',
-		help: 'help text for nab:delta:meta:depend:copy2',
+		help: 'help text for dbx:delta:meta:depend:copy2',
 		flags: [{
 				name: 'targetdir',
 				char: 'r',
@@ -123,7 +123,7 @@ function copyFolderRecursiveSync( source, target ) {
 				required: false
 			}],
 		run(context) {
-			let config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+			let config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
 
 			var commitid = context.flags.commitid;
 			var mode = context.flags.mode;
@@ -138,18 +138,18 @@ function copyFolderRecursiveSync( source, target ) {
 			//git diff-tree --no-commit-id --name-only -r 2d9dc0fd1f5148b9f4dac23215c4aaaae64c1ab1
 			var files;
 			if (mode === 'tags')
-				files = exec(`git show $(git describe --tags --abbrev=0)..HEAD --name-only | grep nab-app | sort | uniq`).toString().split('\n');
+				files = exec(`git show $(git describe --tags --abbrev=0)..HEAD --name-only | grep dbx-app | sort | uniq`).toString().split('\n');
 			else
-				files = exec(`git diff-tree --no-commit-id --name-only -r ${commitid} | grep nab-app | sort | uniq`).toString().split('\n'); //this only work with specific commit ids, how to get file that changed since last tag ? 
+				files = exec(`git diff-tree --no-commit-id --name-only -r ${commitid} | grep dbx-app | sort | uniq`).toString().split('\n'); //this only work with specific commit ids, how to get file that changed since last tag ? 
 			console.log(files);
 			if (!businesscontext){
 				for(var i in files){
 					var f = files[i];
-					if (f.indexOf('nab-app/service') >= 0){
+					if (f.indexOf('dbx-app/service') >= 0){
 						businesscontext = 'service';break;
-					}else if (f.indexOf('nab-app/sale') >= 0){
+					}else if (f.indexOf('dbx-app/sale') >= 0){
 						businesscontext = 'sale';break;
-					}else if (f.indexOf('nab-app/etm') >= 0){
+					}else if (f.indexOf('dbx-app/etm') >= 0){
 						businesscontext = 'etm';break
 					}
 				}
@@ -168,9 +168,9 @@ function copyFolderRecursiveSync( source, target ) {
 			for(var i in files){
                 var f = files[i];
 
-                if (!f || f == '' || f.indexOf('nab-app') < 0) continue;
+                if (!f || f == '' || f.indexOf('dbx-app') < 0) continue;
                 
-				if (config.appDirectories[businesscontext].testdir && f.indexOf('nab-app/sale/test') >= 0){
+				if (config.appDirectories[businesscontext].testdir && f.indexOf('dbx-app/sale/test') >= 0){
 					basedir = config.appDirectories[businesscontext].testdir;
                 }
 				if (fs.existsSync(f) && !fs.existsSync(path.join(targetdir,f))){ 
@@ -180,7 +180,7 @@ function copyFolderRecursiveSync( source, target ) {
 					
 					if (fs.existsSync(f)) fs.copyFileSync(f,path.join(targetdir,f)); //copy original file
                     var fileext = file.base.substring(file.base.indexOf('.') + 1);
-                    var foldername = file.dir.replace( (f.indexOf() >= 0 ? 'nab-app/core': basedir) + '/' ,'');
+                    var foldername = file.dir.replace( (f.indexOf() >= 0 ? 'dbx-app/core': basedir) + '/' ,'');
 					if (foldername.indexOf('/') >= 0){
 						foldername = foldername.split('/')[0];
                     }					

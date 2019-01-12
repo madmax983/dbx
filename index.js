@@ -16,7 +16,7 @@
     description: 'multiple config utilities such as static resource, label, ...'
   },{
     name: 'profile',
-    description: 'utilities to manipulate profile files\n\nUsage:\n1. pull from origin/develop\ngit pull origin develop\n2. push to scratch org new changes\nsfdx force:source:push -u myorg\n3. convert profiles xml files to json\nsfdx nab:profile:convert\n4. make change in scratch org\nsfdx force:source:pull -u myorg\n5. re-convert profiles xml files to json\nsfdx nab:profile:convert\n6. rebuild profile meta xml files from json files\nsfdx nab:profile:build'
+    description: 'utilities to manipulate profile files\n\nUsage:\n1. pull from origin/develop\ngit pull origin develop\n2. push to scratch org new changes\nsfdx force:source:push -u myorg\n3. convert profiles xml files to json\nsfdx dbx:profile:convert\n4. make change in scratch org\nsfdx force:source:pull -u myorg\n5. re-convert profiles xml files to json\nsfdx dbx:profile:convert\n6. rebuild profile meta xml files from json files\nsfdx dbx:profile:build'
   },{
     name: 'flow',
     description: 'utilities to manipulate flows & flow definitions'
@@ -30,7 +30,7 @@
 
   exports.namespace = {
     name: 'dbx',
-    description: 'Various utility commands for NAB developers'
+    description: 'Various utility commands for dbx developers'
   };
 
   exports.commands = [

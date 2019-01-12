@@ -12,7 +12,7 @@ function displayOutput(){
 }
 
 function export_data(sourceorg){
-	let config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+	let config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
 	if (config.transfer_soql_queries){
 		config.transfer_soql_queries.forEach (function(elem) {
 			if (elem.active){
@@ -23,7 +23,7 @@ function export_data(sourceorg){
 }
 
 function import_data(targetorg){
-	let config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+	let config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
 	if (config.transfer_soql_queries){
 		config.transfer_soql_queries.forEach (function(elem) {
 			if (elem.active){
@@ -91,8 +91,8 @@ function updateRecordType(targetorg, file){
 	module.exports = {
 		topic: 'data',
 		command: 'transfer',
-		description: 'transfer data between org, check nab-cli-def.json to set queries',
-		help: 'help text for nab:data:transfer',
+		description: 'transfer data between org, check dbx-cli-def.json to set queries',
+		help: 'help text for dbx:data:transfer',
 		flags: [{
 				name: 'orgname',
 				char: 'u',

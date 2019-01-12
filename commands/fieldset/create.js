@@ -25,7 +25,7 @@ function updateContent(varName, question) {
         topic: 'config',
         command: 'fieldset',
         description: 'Create field set',
-        help: 'help text for nab:config:fieldset',
+        help: 'help text for dbx:config:fieldset',
         flags: [{
             name: 'orgname',
             char: 'u',

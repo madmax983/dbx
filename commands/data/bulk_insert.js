@@ -155,7 +155,7 @@ function getResults(jobId, accessToken, instanceUrl){
     topic: 'data',
     command: 'bulk2',
     description: 'Bulk api insert',
-    help: 'help text for nab:data:bulk2',
+    help: 'help text for dbx:data:bulk2',
     flags: [{
       name: 'orgname',
       char: 'u',

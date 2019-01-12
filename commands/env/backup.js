@@ -4,7 +4,7 @@ const fs = require('fs');
 const cliSpinners = require('cli-spinners');
 
 function saveRuntime(config){
-	fs.writeFileSync ("./config/nab-cli-def.json", config, function(err) {
+	fs.writeFileSync ("./config/dbx-cli-def.json", config, function(err) {
 			if(err) {
 					return console.log(err);
 			}
@@ -19,7 +19,7 @@ function saveRuntime(config){
 		topic: 'env',
 		command: 'backup',
 		description: 'Perform data backup of target environment',
-		help: 'help text for nab:env:backup',
+		help: 'help text for dbx:env:backup',
 		flags: [{
 			name: 'orgname',
 			char: 'u',
@@ -42,7 +42,7 @@ function saveRuntime(config){
 			hasValue: true
 		}],
 		run(context) {
-			var config = JSON.parse(fs.readFileSync('./config/nab-cli-def.json').toString());
+			var config = JSON.parse(fs.readFileSync('./config/dbx-cli-def.json').toString());
 
 			let orgname = context.flags.orgname;
 			let resultformat = context.flags.resultformat !== undefined ? context.flags.resultformat : 'csv';
@@ -55,7 +55,7 @@ function saveRuntime(config){
 			let count = 0;
 			
 			const now = new Date();
-			const dirpath = './backup/nabcrm_'+now.getFullYear()+''+(now.getMonth()+1)+''+now.getDate()+''+now.getHours()+''+now.getMinutes();
+			const dirpath = './backup/dbxcrm_'+now.getFullYear()+''+(now.getMonth()+1)+''+now.getDate()+''+now.getHours()+''+now.getMinutes();
 			fs.mkdirSync(dirpath);
 			
 			stdout.result.forEach(function(obj) {

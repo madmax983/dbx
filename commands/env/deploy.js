@@ -8,7 +8,7 @@ const exec = require('child_process').execSync;
     topic: 'env',
     command: 'deploy',
     description: 'Convert DX files to metadata and deploy to target env',
-    help: 'help text for nab:env:deploy',
+    help: 'help text for dbx:env:deploy',
     flags: [{
       name: 'orgname',
       char: 'u',

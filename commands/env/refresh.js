@@ -33,7 +33,7 @@ function refresh_meta(orgname) {
 	// } catch (err) {
 	// 	console.log('No flow to deactivate...');
 	// }
-	console.log(exec(`sfdx nab:env:resetworkflow -u ${orgname}`).toString());
+	console.log(exec(`sfdx dbx:env:resetworkflow -u ${orgname}`).toString());
 
 	try {
 		exec(`sfdx force:source:push -f -u ${orgname} -w 60 > output.txt`);
@@ -48,7 +48,7 @@ function refresh_meta(orgname) {
 		topic: 'env',
 		command: 'refresh',
 		description: 'Refresh metadata',
-		help: 'help text for nab:env:refresh',
+		help: 'help text for dbx:env:refresh',
 		flags: [{
 			name: 'orgname',
 			char: 'u',

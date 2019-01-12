@@ -186,7 +186,7 @@ function getContentType(ext){
     topic: 'config',
     command: 'static',
     description: 'Create static resource',
-    help: 'help text for nab:static:create',
+    help: 'help text for dbx:static:create',
     flags: [{
       name: 'orgname',
       char: 'u',

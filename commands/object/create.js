@@ -46,15 +46,15 @@ var content =  '<?xml version="1.0" encoding="UTF-8"?>\n'+
                 '   <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>\n'+
                 '   <deploymentStatus>Deployed</deploymentStatus>\n'+
                 '   <description>{{description}}</description>\n'+
-                '   <enableActivities>true</enableActivities>\n'+
-                '   <enableBulkApi>true</enableBulkApi>\n'+
-                '   <enableChangeDataCapture>false</enableChangeDataCapture>\n'+
-                '   <enableFeeds>false</enableFeeds>\n'+
-                '   <enableHistory>true</enableHistory>\n'+
-                '   <enableReports>true</enableReports>\n'+
-                '   <enableSearch>true</enableSearch>\n'+
-                '   <enableSharing>true</enableSharing>\n'+
-                '   <enableStreamingApi>true</enableStreamingApi>\n'+
+                '   <edbxleActivities>true</edbxleActivities>\n'+
+                '   <edbxleBulkApi>true</edbxleBulkApi>\n'+
+                '   <edbxleChangeDataCapture>false</edbxleChangeDataCapture>\n'+
+                '   <edbxleFeeds>false</edbxleFeeds>\n'+
+                '   <edbxleHistory>true</edbxleHistory>\n'+
+                '   <edbxleReports>true</edbxleReports>\n'+
+                '   <edbxleSearch>true</edbxleSearch>\n'+
+                '   <edbxleSharing>true</edbxleSharing>\n'+
+                '   <edbxleStreamingApi>true</edbxleStreamingApi>\n'+
                 '   <label>{{label}}</label>\n'+
                 '   <nameField>\n'+
                 '       <label>{{label}} Name</label>\n'+
@@ -82,7 +82,7 @@ function updateContent(varName, question) {
         topic: 'config',
         command: 'sobject',
         description: 'Create custom object',
-        help: 'help text for nab:config:sobject',
+        help: 'help text for dbx:config:sobject',
         flags: [{
             name: 'orgname',
             char: 'u',

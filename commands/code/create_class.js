@@ -12,7 +12,7 @@ const codeCreate = require('../../lib/code_create.js');
     topic: 'code',
     command: 'class',
     description: 'Apex class creation',
-    help: 'help text for nab:code:class',
+    help: 'help text for dbx:code:class',
     flags: [{
       name: 'apiname',
       char: 'n',

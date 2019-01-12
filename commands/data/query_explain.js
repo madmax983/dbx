@@ -61,7 +61,7 @@ function queryPlan(query, accessToken, instanceUrl){
     topic: 'data',
     command: 'query:explain',
     description: 'Query optimizer',
-    help: 'help text for nab:data:query:explain',
+    help: 'help text for dbx:data:query:explain',
     flags: [{
       name: 'orgname',
       char: 'u',
