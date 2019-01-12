@@ -1,0 +1,47 @@
+{
+    "defaultdurationdays" : "30",
+    "packages" : [],
+    "pre_legacy_packages" : [],
+    "user_def_file" : "",
+    "user_alias_prefix" : "reps",
+    "disableFeedTrackingHistory":[],
+    "manual_config_required" :  false,
+    "manual_steps" : [],
+    "transfer_soql_queries" : [
+        {
+            "active" : true,
+            "folder" : "organisations_opportunities",
+            "filename" : "Account-Opportunity-plan.json",
+            "sobject" : "Account",
+            "recordtype" : "IndustriesBusiness",
+            "query" : "SELECT Id, Name, Phone, Industry, (SELECT Name, Amount, StageName, CloseDate, FROM Opportunities Limit 2) FROM Account WHERE Id IN (SELECT AccountId FROM Opportunity) ORDER BY CREATEDDATE DESC LIMIT 100",
+            "transformations" :[]
+        },
+        {
+            "active" : false,
+            "folder" : "leads",
+            "filename" : "Lead-plan.json",
+            "sobject" : "Lead",
+            "recordtype" : "Lead",
+            "query" : "SELECT FirstName, LastName, Company, Email, Phone, MobilePhone, Rating, Title, Status, LeadSource, Street, City, State, PostalCode, Country  FROM Lead WHERE Email != null ORDER BY CREATEDDATE DESC LIMIT 200",
+            "transformations" :[
+                {
+                    "targetField" : "Email",
+                    "type" : "random_email"
+                },
+                {
+                    "targetField" : "Company",
+                    "type" : "random_text"
+                },
+                {
+                    "targetField" : "LastName",
+                    "type" : "random_lastname"
+                },
+                {
+                    "targetField" : "FirstName",
+                    "type" : "random_firstname"
+                }
+            ]
+        }
+    ]
+}
