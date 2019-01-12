@@ -11,7 +11,7 @@ Once installed, checkout proxy setting if you are behind corporate proxy.
 
 ## Proxy Settings
 
-1. Config npm proxy one by one in a new terminal(no admin required)
+1. Config npm proxy one by one in a new terminal
 
     ```shell
     npm config set https-proxy http://address:port
@@ -22,23 +22,24 @@ Once installed, checkout proxy setting if you are behind corporate proxy.
 
 ## Install DBX-CLI
 
-2. go to your workspace and clone the repository:
+1. go to your workspace and clone the repository:
 
     ```shell
     git clone https://github.com/davidbrowaeys/dbx.git
     ``` 
 
-5. Go to dbx repo and install npm modules (as a admin): 
+2. Go to dbx repo and install npm modules: 
 
     ```shell
     npm install
     ```
 
-6. Link dbx-cli plugin to SFDX (non admin), go to dbx-cli folder and execute
+3. Link dbx-cli plugin to SFDX, go to dbx-cli folder and execute
 
     ```shell
     sfdx plugins:link .
     ```
+4. In your sfdx project, you must create <a href="https://github.com/davidbrowaeys/dbx/blob/master/dbx-cli.json">dbx-cli.json</a> and put in under config folder along with your project-scratch-def.json.
 
 ## Usage
 
